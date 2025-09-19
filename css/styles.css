@@ -28,7 +28,7 @@ img {
 
 body {
     height: 100vh;
-    margin: 0 auto;
+    margin: 156px 100px;
     width: 1128px;
     display: flex;
     justify-content: center;
@@ -48,7 +48,7 @@ body {
 
 .gallery-image {
     width: 360px;
-    height: 300px
+    height: 300px;
 }
 
 .gallery-image {

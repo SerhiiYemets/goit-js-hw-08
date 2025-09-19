@@ -66,32 +66,57 @@ const images = [
 
 
 function createGallery() {
-    const gallery = document.querySelector(".gallery")
-
-    const markup = images.map(({ preview, original, description }) =>
-        `<li class="gallery-item">
-    <a class="gallery-link" href="${original}">
-        <img class="gallery-image"
-            src="${preview}"
-            data-source="${original}"
-            alt="${description}"
-        />
-    </a>
-    </li>`).join("");
+    const gallery = document.querySelector(".gallery");
+    
+    const markup = images.map(({ preview, original, description }) => `
+    <li class="gallery-item">
+        <a class="gallery-link" href="${original}">
+            <img 
+                class="gallery-image"
+                src="${preview}"
+                data-source="${original}"
+                alt="${description}"
+            />
+        </a>
+    </li>
+    `).join("");
     
     if (!gallery) {
-        console.error("Gallery not found"); return;
+        console.error("Gallery not found");
+        return;
     }
-    if (!images.length) return;
     
-    gallery.insertAdjacentHTML('beforeend', markup)
+    gallery.insertAdjacentHTML("beforeend", markup);
     
     gallery.addEventListener("click", (event) => {
         event.preventDefault();
+
+    if (event.target.nodeName !== "IMG") return;
+    const dataSource = event.target.dataset.source;
+    console.log(dataSource)
     
-        const link = event.target.closest(".gallery-link");
-        if (!link) return;
-        event.preventDefault();
+    const instance = basicLightbox.create(`
+    <div class="modal">
+        <img src="${dataSource}">
+    </div>
+    `,
+    {
+        onShow: (instance) => {
+            instance
+            .element()
+            .querySelector(".modal")
+            .addEventListener("click", () => {
+                instance.close();
+            });
+        },
+    }
+);
+
+instance.show();
     });
 }
+
 createGallery();
+
+
+

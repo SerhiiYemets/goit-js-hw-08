@@ -28,7 +28,7 @@ img {
 
 body {
     height: 100vh;
-    margin: 156px 100px;
+    margin: 100px 156px;
     width: 1128px;
     display: flex;
     justify-content: center;
